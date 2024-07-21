@@ -9,7 +9,7 @@ function TodoList(props: TodoListProps) {
   const { todoList } = props;
 
   return (
-    <section>
+    <section className='flex flex-wrap'>
       {todoList.map(todo => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
