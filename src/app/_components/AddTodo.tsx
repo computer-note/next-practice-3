@@ -8,13 +8,17 @@ function AddTodo() {
 
   async function handleAddTodo(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const newTodo = {};
 
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
 
-    const title = formData.get('todo-title');
+    newTodo['title'] = formData.get('todo-title');
 
-    await supabase.from('todos').insert({ title }).select();
+    const { data } = await supabase.auth.getUser();
+    newTodo['user_id'] = data.user ? data.user.id : null;
+
+    await supabase.from('todos').insert(newTodo).select();
 
     form.reset();
   }
