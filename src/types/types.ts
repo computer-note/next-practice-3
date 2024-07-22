@@ -4,3 +4,7 @@ export type Todo = {
   title: string;
   user_id: string;
 };
+
+export type TodoWithCreator = Todo & {
+  creater: string;
+};
