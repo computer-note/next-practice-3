@@ -15,7 +15,14 @@ export default async function RootLayout(props: PropsWithChildren) {
     authInfo.isLogin = false;
   } else {
     authInfo.isLogin = true;
-    authInfo.data = data.user;
+
+    const profile = await supabase
+      .from('profiles')
+      .select()
+      .eq('id', data.user.id)
+      .single();
+
+    authInfo.user = { ...data.user, ...profile.data };
   }
 
   return (
